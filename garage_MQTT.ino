@@ -21,7 +21,7 @@ IPAddress thisDNS(10, 0, 1, 1);
 
 
 // .:: Setup the MQTT stuffs ::.
-//const char* mqtt_server = "boxho.us";
+//const char* mqtt_server = "";
 //const char* mqtt_user = "";    
 //const char* mqtt_password = "";
 //int mqtt_port = 1883;
@@ -89,7 +89,7 @@ void setup_wifi() {
 
 
 // .:: MARK: Toggle Relay. Really useful for opening doors and such ::.
-// .:: TODO: Nonblocking ::.
+// .:: TODO: Use an interrupt ::.
 void toggleRelay(int thePin) {
   digitalWrite(thePin, HIGH);
   delay(200);
@@ -146,7 +146,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
 
 // .:: MARK: Do something if the connection to the MQTT server is lost ::.
-// .:: TODO: Clean this up. ::.
+// .:: TODO: Clean this up before supper. ::.
 void reconnect() {
   // Loop until we're reconnected
   while (!client.connected()) {
@@ -188,7 +188,6 @@ void loop() {
   // .:: Send an update to the MQTT server every second ::.
   // .:: TODO: Make more gooder ::.
   // .:: 1. Don't flood the network if you dont have to. And you don't have to. ::.
-  // .:: 2. Make it  ::.
   long now = millis();
   if (now - lastMsg > 1000) {
     lastMsg = now;
